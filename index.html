@@ -92,7 +92,9 @@
         // nech to 🔷 robí  keď budeš klikať : - )
         if (nakrm.disabled) nakrm.preventDefault(); // Že jako?
 
-        fetch('http://' + ipadresa + '/api/motor?o=200').then(
+        fetch('http://' + ipadresa + '/api/motor?o=200',{mode:"no-cors",headers:{
+                "Access-Control-Request-Private-Network": "true"
+            }}).then(
             response => {
                 if (!response.ok) {
                     alert("Nastala chyba! " + response.status);
