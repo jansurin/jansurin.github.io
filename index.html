@@ -80,29 +80,22 @@
 </body>
 
 <script>
-    var ipadresa = window.localStorage.getItem("ipadresa") ?? '127.0.0.1';
-
+    var ipadresa = window.localStorage.getItem("ipadresa") ?? 'your-api-url.com'; // Použite HTTPS URL pre váš API server
     var nakrmtext = "<h1>Nakŕm 🐶</h1>";
     var nakrmtext2 = "<h1>Nakŕmené ❌</h1>";
     var nakrm = document.getElementById("nakrm");
     var nastavenie = document.getElementById("nastavenie");
 
-    // Funkcia na kontrolu, či je stránka načítaná cez HTTPS
-    var protocol = window.location.protocol === "https:" ? "https://" : "http://";
-
     nakrm.onclick = () => {
-        // Nech to robí ak budeš klikať : - )
-        if (nakrm.disabled) nakrm.preventDefault(); // Že ako?
+        if (nakrm.disabled) nakrm.preventDefault();
 
-        fetch(protocol + ipadresa + '/api/motor?o=200', { headers: { 'Content-Type': 'application/json' } }).then(
+        fetch('https://' + ipadresa + '/api/motor?o=200', { headers: { 'Content-Type': 'application/json' } }).then(
             response => {
                 if (!response.ok) {
                     alert("Nastala chyba! " + response.status);
-
                     nakrm.innerHTML = nakrmtext;
                     nakrm.dataset.nakrmene = false;
                     nakrm.disabled = false;
-
                     return;
                 }
 
@@ -110,11 +103,10 @@
                     nakrm.innerHTML = nakrmtext;
                     nakrm.dataset.nakrmene = false;
                     nakrm.disabled = false;
-                }, 10000); // Krát tisícatá milise kunda 👍👍👍
+                }, 10000);
             }
         ).catch(() => {
             alert("Nepodarilo sa!");
-
             nakrm.innerHTML = nakrmtext;
             nakrm.dataset.nakrmene = false;
             nakrm.disabled = false;
@@ -123,15 +115,7 @@
         nakrm.innerHTML = nakrmtext2;
         nakrm.dataset.nakrmene = true;
         nakrm.disabled = true;
-    }
-
-    nastavenie.onclick = () => {
-        var odpoved = prompt("Praješ si zmeniť adresu??? Prinajhoršom nechajte pôvodnú!", "127.0.0.1");
-        ipadresa = odpoved;
-        if (odpoved) {
-            window.localStorage.setItem("ipadresa", odpoved);
-        }
-    }
+    };
 </script>
 
 </html>
