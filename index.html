@@ -87,12 +87,14 @@
     var nakrm = document.getElementById("nakrm");
     var nastavenie = document.getElementById("nastavenie");
 
+    // Funkcia na kontrolu, či je stránka načítaná cez HTTPS
+    var protocol = window.location.protocol === "https:" ? "https://" : "http://";
 
     nakrm.onclick = () => {
-        // nech to 🔷 robí  keď budeš klikať : - )
-        if (nakrm.disabled) nakrm.preventDefault(); // Že jako?
+        // Nech to robí ak budeš klikať : - )
+        if (nakrm.disabled) nakrm.preventDefault(); // Že ako?
 
-        fetch('http://' + ipadresa + '/api/motor?o=200',{headers:{'Content-Type': 'application/json'}}).then(
+        fetch(protocol + ipadresa + '/api/motor?o=200', { headers: { 'Content-Type': 'application/json' } }).then(
             response => {
                 if (!response.ok) {
                     alert("Nastala chyba! " + response.status);
